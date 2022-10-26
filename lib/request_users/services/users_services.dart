@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_web_libraries_in_flutter, use_build_context_synchronously
+// ignore_for_file: avoid_web_libraries_in_flutter, use_build_context_synchronously, prefer_interpolation_to_compose_strings, avoid_print, unused_local_variable
 
 import 'package:bktomarrow/request_users/model/user_model.dart';
 import 'package:dio/dio.dart';
@@ -14,11 +14,11 @@ abstract class IClientServices {
 }
 
 class ClientServices extends IClientServices {
+  String url = 'https://6357dbe8c26aac906f345c6b.mockapi.io/users';
   ClientServices(super.dio);
 
   @override
   Future<List<Users>?> fetchUsersItem() async {
-    const String url = 'https://6357dbe8c26aac906f345c6b.mockapi.io/users';
     final response = await dio.get(url);
     if (response.statusCode == 200) {
       final jsonBody = response.data;
@@ -29,9 +29,8 @@ class ClientServices extends IClientServices {
     return null;
   }
 
-  Future<void> updateUser(title, userId) async {
-    String url = 'https://6357dbe8c26aac906f345c6b.mockapi.io/users';
-
+  Future<void> updateUser(title, id) async {
+    String url = 'https://6357dbe8c26aac906f345c6b.mockapi.io/users/$id';
     final data = {
       "title": title,
     };
@@ -46,15 +45,25 @@ class ClientServices extends IClientServices {
     }
   }
 
-  Future<void> deleteUser(userId) async {
-    String url = 'https://6357dbe8c26aac906f345c6b.mockapi.io/users';
+  Future<void> deleteUser(id) async {
     try {
-      final response = await dio.delete(url);
-      Navigator.pop(dialogContext);
-      debugPrint('User : ${response.data}');
-      debugPrint('message : ${response.statusMessage}');
+      await dio.delete(url + '/$id');
+      //Navigator.pop(dialogContext);
+      print('Delete');
     } catch (e) {
-      debugPrint('exception $e');
+      print('Error deleting user: $e');
     }
+  }
+
+  Future<Users> updateUsers(String id, Users users) async {
+    Users? updatedUser;
+    try {
+      Response response = await dio.put(url + '/$id', data: users.toJson());
+      print('User updated: ${response.data}');
+      updatedUser = Users.fromJson(response.data);
+    } catch (e) {
+      print('Error updating user: $e');
+    }
+    return updatedUser!;
   }
 }
