@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, prefer_const_constructors
+// ignore_for_file: must_be_immutable
 
 import 'package:bktomarrow/core/constant/color_constant.dart';
 import 'package:bktomarrow/core/extension/extension.dart';
@@ -49,29 +49,17 @@ class UserDetailPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _updateButton(),
-              _deleteButton(),
+              ElevatedButton(onPressed: () {}, child: Text('Güncelle')),
+              ElevatedButton(
+                  onPressed: () {
+                    _userCrud.deleteUser(usersList[index].id);
+                  },
+                  child: Text('Sil'))
             ],
           )
         ],
       ),
     );
-  }
-
-  ElevatedButton _deleteButton() {
-    return ElevatedButton(
-        onPressed: () {
-          _userCrud.deleteUser(usersList[index].id);
-        },
-        child: Text('Sil'));
-  }
-
-  ElevatedButton _updateButton() {
-    return ElevatedButton(
-        onPressed: () {
-          _userCrud.updateUser(usersList[index].name, usersList[index].id);
-        },
-        child: Text('Güncelle'));
   }
 
   ClipOval _avatarWidget() {
