@@ -4,9 +4,9 @@ import 'package:bktomarrow/core/constant/color_constant.dart';
 import 'package:bktomarrow/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/users_details_component.dart';
-import '../../../core/utils/strings.dart';
-import '../../model/user_model.dart';
+import '../components/users_details_component.dart';
+import '../core/utils/strings.dart';
+import '../request_users/model/user_model.dart';
 
 class UserDetailsPage extends StatelessWidget {
   List<Users> usersList = [];

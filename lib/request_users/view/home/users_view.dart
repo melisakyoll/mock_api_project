@@ -1,8 +1,12 @@
 import 'package:bktomarrow/core/extension/extension.dart';
 import 'package:bktomarrow/core/utils/strings.dart';
+import 'package:bktomarrow/product/service/project_network.dart';
+import 'package:bktomarrow/request_users/services/users_services.dart';
 import 'package:bktomarrow/request_users/view/details/user_details_page.dart';
+import 'package:bktomarrow/request_users/view_model/provider_user_request.dart';
 import 'package:bktomarrow/request_users/view_model/users_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constant/color_constant.dart';
 
@@ -13,18 +17,30 @@ class UserView extends StatefulWidget {
   State<UserView> createState() => _UserViewState();
 }
 
-class _UserViewState extends UsersViewModel {
+//class _UserViewState extends UsersViewModel
+class _UserViewState extends UsersViewModel with ProjectDioMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorConstant.lightBackground,
-      appBar: _appBar(),
-      body: ListView.builder(
-        itemCount: usersList.length,
-        itemBuilder: ((context, index) {
-          return _customCard(index, context);
-        }),
-      ),
+    return ChangeNotifierProvider<UserProvider>(
+      create: (BuildContext context) =>
+          UserProvider(ClientServices(dioUrlService)),
+      builder: ((context, child) {
+        return Scaffold(
+            backgroundColor: ColorConstant.lightBackground,
+            appBar: _appBar(),
+            body: Selector<UserProvider, bool>(
+                builder: ((context, value, child) {
+                  return value
+                      ? ListView.builder(
+                          itemCount: usersList.length,
+                          itemBuilder: ((context, index) {
+                            return _customCard(index, context);
+                          }),
+                        )
+                      : Text(TextWidget.noData);
+                }),
+                selector: ((p0, p1) => p1.isLoading)));
+      }),
     );
   }
 
@@ -63,8 +79,14 @@ class _UserViewState extends UsersViewModel {
 
   ListTile _customListTile(int index, BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        child: Image.network(usersList[index].avatar!),
+      leading: ClipOval(
+        child: SizedBox.fromSize(
+          size: const Size.fromRadius(25),
+          child: Image.network(
+            usersList[index].avatar!,
+            fit: BoxFit.cover,
+          ),
+        ),
       ),
       title: _nameSurname(index),
       subtitle: _mailPhone(index),
@@ -107,7 +129,6 @@ class _UserViewState extends UsersViewModel {
 }
 
 SizedBox sizedBox(BuildContext context) => SizedBox(width: context.lowValue);
-
 
 /*
 
