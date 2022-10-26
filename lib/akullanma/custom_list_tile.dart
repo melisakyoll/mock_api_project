@@ -1,3 +1,4 @@
+/*
 import 'package:bktomarrow/core/utils/strings.dart';
 import 'package:bktomarrow/view/details_page.dart';
 import 'package:flutter/material.dart';
@@ -90,3 +91,4 @@ class CustomFutueBuilder extends StatelessWidget {
     );
   }
 }
+*/

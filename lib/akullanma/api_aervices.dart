@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
-
+/*
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../model/user_model.dart';
 
-/*class UserServices {
+class UserServices {
   String url = 'https://6357dbe8c26aac906f345c6b.mockapi.io/users';
 
   Future<List<Users>> fetchData() async {
@@ -21,7 +21,7 @@ import '../model/user_model.dart';
       throw Exception('Failed to load DemoAPI');
     }
   }
-}*/
+}
 
 class UserServices {
   // ignore: prefer_typing_uninitialized_variables
@@ -43,7 +43,7 @@ class UserServices {
     throw Exception('Article not working');
   }
 }
-
+*/
 /*
 
 ;
