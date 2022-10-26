@@ -1,7 +1,6 @@
-import 'package:bktomarrow/view/home.dart';
 import 'package:flutter/material.dart';
 
-import 'request_users/view/users_view.dart';
+import 'request_users/view/home/users_view.dart';
 
 void main() {
   runApp(const MyApp());

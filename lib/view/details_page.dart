@@ -17,7 +17,7 @@ class DetailsPage extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: context.horizontalAndVerticalLow,
           child: ListView(
             children: [
               Image.network(
