@@ -29,7 +29,10 @@ class _UserViewState extends UsersViewModel with ProjectDioMixin {
             backgroundColor: ColorConstant.lightBackground,
             appBar: _appBar(),
             body: ListView.builder(
-                itemCount: usersList.length,
+                itemCount: context
+                    .watch<UserProvider>()
+                    .usersList
+                    .length, //usersList.length,
                 itemBuilder: ((context, index) {
                   return _customCard(index, context);
                 })));
@@ -70,40 +73,40 @@ class _UserViewState extends UsersViewModel with ProjectDioMixin {
     );
   }
 
-  ListTile _customListTile(int index, BuildContext context) {
+  ListTile _customListTile(
+    int index,
+    BuildContext context,
+  ) {
     return ListTile(
       leading: ClipOval(
         child: SizedBox.fromSize(
           size: const Size.fromRadius(25),
           child: Image.network(
-            usersList[index].avatar!,
+            context.watch<UserProvider>().usersList[index].avatar!,
+            //usersList[index].avatar!,
             fit: BoxFit.cover,
           ),
         ),
       ),
-      title: _nameSurname(index),
-      subtitle: _mailPhone(index),
+      title: Row(
+        children: [
+          Text(context.watch<UserProvider>().usersList[index].name ??
+              TextWidget.noData),
+          sizedBox(context),
+          Text(context.watch<UserProvider>().usersList[index].surname ??
+              TextWidget.noData),
+        ],
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(context.watch<UserProvider>().usersList[index].phone ??
+              TextWidget.noData),
+          Text(context.watch<UserProvider>().usersList[index].email ??
+              TextWidget.noData),
+        ],
+      ),
       trailing: _detailsButton(context, index),
-    );
-  }
-
-  Row _nameSurname(int index) {
-    return Row(
-      children: [
-        Text(usersList[index].name ?? ''),
-        sizedBox(context),
-        Text(usersList[index].surname ?? ''),
-      ],
-    );
-  }
-
-  Column _mailPhone(int index) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(usersList[index].phone ?? ''),
-        Text(usersList[index].email ?? ''),
-      ],
     );
   }
 

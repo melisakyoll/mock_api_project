@@ -1,15 +1,20 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_const_constructors
 
 import 'package:bktomarrow/core/constant/color_constant.dart';
 import 'package:bktomarrow/core/extension/extension.dart';
 import 'package:bktomarrow/core/utils/strings.dart';
+import 'package:bktomarrow/request_users/services/users_services.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/users_details_component.dart';
+import '../../../core/utils/base_url.dart';
 import '../../model/user_model.dart';
 
 class UserDetailPage extends StatelessWidget {
   List<Users> usersList = [];
+  final ClientServices _userCrud =
+      ClientServices(Dio(BaseOptions(baseUrl: baseUrl)));
   int index;
   UserDetailPage({super.key, required this.index, required this.usersList});
 
@@ -39,10 +44,34 @@ class UserDetailPage extends StatelessWidget {
             index: index,
             usersList: usersList,
           ),
-          _loremText(context)
+          _loremText(context),
+          sizedBoxMedium(context),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _updateButton(),
+              _deleteButton(),
+            ],
+          )
         ],
       ),
     );
+  }
+
+  ElevatedButton _deleteButton() {
+    return ElevatedButton(
+        onPressed: () {
+          _userCrud.deleteUser(usersList[index].id);
+        },
+        child: Text('Sil'));
+  }
+
+  ElevatedButton _updateButton() {
+    return ElevatedButton(
+        onPressed: () {
+          _userCrud.updateUser(usersList[index].name, usersList[index].id);
+        },
+        child: Text('Güncelle'));
   }
 
   ClipOval _avatarWidget() {
