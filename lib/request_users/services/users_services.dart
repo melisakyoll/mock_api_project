@@ -29,7 +29,7 @@ class ClientServices extends IClientServices {
     return null;
   }
 
-  Future<void> updateUser(title, postId) async {
+  Future<void> updateUser(title, userId) async {
     String url = 'https://6357dbe8c26aac906f345c6b.mockapi.io/users';
 
     final data = {
@@ -40,19 +40,18 @@ class ClientServices extends IClientServices {
       final response = await dio.patch(url, data: data);
       Navigator.pop(dialogContext);
       //buildShowSnackBar(context, 'msg');
-      debugPrint('post : ${response.data}');
+      debugPrint('User : ${response.data}');
     } catch (e) {
       debugPrint('exception $e');
     }
   }
 
-  Future<void> deletePost(postId) async {
+  Future<void> deleteUser(userId) async {
     String url = 'https://6357dbe8c26aac906f345c6b.mockapi.io/users';
     try {
       final response = await dio.delete(url);
       Navigator.pop(dialogContext);
-      //buildShowSnackBar(context, "post deleted");
-      debugPrint('post : ${response.data}');
+      debugPrint('User : ${response.data}');
       debugPrint('message : ${response.statusMessage}');
     } catch (e) {
       debugPrint('exception $e');
