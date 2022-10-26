@@ -23,32 +23,44 @@ class UserDetailPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Center(
-            child: Column(
-              children: [
-                ClipOval(
-                  child: SizedBox.fromSize(
-                    size: const Size.fromRadius(100),
-                    child: Image.network(
-                      usersList[index].avatar!,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                sizedBoxMedium(context),
-                DetailsComponent(
-                  index: index,
-                  usersList: usersList,
-                ),
-                Padding(
-                  padding: context.paddingMedium,
-                  child: Text(TextWidget.loremText * 50),
-                )
-              ],
-            ),
-          ),
+          _centerContent(context),
         ],
       ),
+    );
+  }
+
+  Center _centerContent(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          _avatarWidget(),
+          sizedBoxMedium(context),
+          DetailsComponent(
+            index: index,
+            usersList: usersList,
+          ),
+          _loremText(context)
+        ],
+      ),
+    );
+  }
+
+  ClipOval _avatarWidget() {
+    return ClipOval(
+      child: SizedBox.fromSize(
+        size: const Size.fromRadius(100),
+        child: Image.network(
+          usersList[index].avatar!,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Padding _loremText(BuildContext context) {
+    return Padding(
+      padding: context.paddingMedium,
+      child: Text(TextWidget.loremText * 50),
     );
   }
 }

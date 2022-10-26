@@ -28,18 +28,11 @@ class _UserViewState extends UsersViewModel with ProjectDioMixin {
         return Scaffold(
             backgroundColor: ColorConstant.lightBackground,
             appBar: _appBar(),
-            body: Selector<UserProvider, bool>(
-                builder: ((context, value, child) {
-                  return value
-                      ? ListView.builder(
-                          itemCount: usersList.length,
-                          itemBuilder: ((context, index) {
-                            return _customCard(index, context);
-                          }),
-                        )
-                      : Text(TextWidget.noData);
-                }),
-                selector: ((p0, p1) => p1.isLoading)));
+            body: ListView.builder(
+                itemCount: usersList.length,
+                itemBuilder: ((context, index) {
+                  return _customCard(index, context);
+                })));
       }),
     );
   }
