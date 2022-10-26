@@ -1,3 +1,4 @@
+import 'package:bktomarrow/core/constant/color_constant.dart';
 import 'package:flutter/material.dart';
 
 import 'request_users/view/home/users_view.dart';
@@ -11,10 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(color: ColorConstant.blackColor)),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: UserView(),
+      home: const UserView(),
     );
   }
 }

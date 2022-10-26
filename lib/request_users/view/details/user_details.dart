@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, unused_element
 
+import 'package:bktomarrow/core/constant/color_constant.dart';
 import 'package:bktomarrow/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +16,20 @@ class UserDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: ColorConstant.lightBackground,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          TextWidget.detailsName,
+          style: context.textTheme.headline6
+              ?.copyWith(color: ColorConstant.blackColor),
+        ),
+        elevation: 0,
+        backgroundColor: ColorConstant.lightBackground,
+      ),
       body: Center(
         child: Padding(
-          padding: context.horizontalAndVerticalLow,
+          padding: context.paddingLowHorizontal,
           child: ListView(
             children: [
               Image.network(
@@ -35,5 +46,3 @@ class UserDetailsPage extends StatelessWidget {
     );
   }
 }
-
-SizedBox sizedBox(BuildContext context) => SizedBox(height: context.lowValue);

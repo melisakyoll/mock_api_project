@@ -14,6 +14,7 @@ extension MediaQueryExtension on BuildContext {
   double get normalValue => height * 0.02;
   double get mediumValue => height * 0.04;
   double get highValue => height * 0.1;
+  double get heightValue => height * .4;
 }
 
 extension ThemeExtension on BuildContext {
@@ -57,3 +58,7 @@ extension PaddingExtensionSymetric on BuildContext {
 extension PageExtension on BuildContext {
   Color get randomColor => Colors.primaries[Random().nextInt(17)];
 }
+
+SizedBox sizedBox(BuildContext context) => SizedBox(height: context.lowValue);
+SizedBox sizedBoxMedium(BuildContext context) =>
+    SizedBox(height: context.mediumValue);
